@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="panel uk-panel-box-primary-hover">
+        <div class="uk-panel-header">
+            <div class="uk-panel-header">
+                <button class="btn btn-primary" (click)="onGetProducts()">
+                  PRODUIT  
+
+                </button>
+                <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+                    <div class="form-group">
+                        <label >
+                            Keyword
+                        </label>
+                        <input type="text" name="keyword" ngModel>
+                        <button type="submit" class="btn btn-success">Chercher</button>
+                    </div>
+                </form>
+                    <table *ngIf="produits" class="table table-striped">
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                DES
+                            </th>
+                            <th>
+                                PRIX
+                            </th>
+                            <th>
+                                QTE
+                            </th>
+                        </tr>
+                        <tr *ngFor="let p of produits._embedded.produits">
+                            <td>{{p.id}}</td>
+                            <td>{{p.designation}}</td>
+                            <td>{{p.price|number:'0.00'}}</td>
+                            <td>{{p.quantite}}</td>
+                            <td><a class="btn btn-danger" (click)="onDeleteProduct(p)">Delete</a></td>
+                            <td><a class="btn btn-sucess" (click)="onEditProduct(p)">EDIT</a></td>
+
+                        </tr>
+                     
+                    </table>
+
+                    <ul *ngIf="pages" class="nav nav-pills">
+                        
+                        <li class="clickable" [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages; let i =index">
+                            <a (click)="onPageProduct(i)">{{i}}</a>
+
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
